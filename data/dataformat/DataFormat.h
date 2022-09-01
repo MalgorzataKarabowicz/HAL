@@ -10,30 +10,9 @@
 #define HALFEMTO_DATAFORMAT_HALDATAFORMAT_H_
 
 #include <TObject.h>
-namespace Hal
-{
-  namespace DataFieldID
-  {
+namespace Hal {
+  namespace DataFieldID {
     enum EEvent {
-<<<<<<< HEAD
-      kVertexX   = 10000001,
-      kVertexY   = 10000002,
-      kVertexZ   = 10000003,
-      kVertexXY  = 10000004,
-      kVertexT   = 10000005,
-      kEventPhi  = 10000006,
-      kPhiError  = 10000007,
-      kTracksNo  = 10000008,
-      kEventId   = 10000009,
-      kEventZero = 10000010
-    };
-    enum EMcEvent {
-      kB = 10000011
-    };
-    enum EExpEvent {
-      kTofTracksNo = 10000012
-    };
-=======
       kVertexX      = 10000001,
       kVertexY      = 10000002,
       kVertexZ      = 10000003,
@@ -49,7 +28,6 @@ namespace Hal
     };
     enum EMcEvent { kB = 10000101 };
     enum EExpEvent { kTofTracksNo = 10000203 };
->>>>>>> 2b427e1ffaf4ca0b119abccb66dcd7d7a8e32b16
     enum EComplexEvent {
       kDeltaRPhi     = 10000300,
       kDeltaVertexXY = 10000301,
@@ -63,8 +41,7 @@ namespace Hal
     };
     const Int_t ReStep = 100000;
     const Int_t ImStep = 200000;
-    namespace Internal
-    {  // do not use in macro
+    namespace Internal {  // do not use in macro
       const Int_t ReStepEvent = 10100000;
       const Int_t ImStepEvent = 10200000;
       const Int_t EventStart  = 10000000;
@@ -124,6 +101,7 @@ namespace Hal
       kTpcNsigmaKa = 113,
       kTpcNsigmaPr = 114,
       kTpcNsigmaEl = 115
+
     };
     enum EComplexTrack {
       kDeltaPt    = 151,
@@ -158,10 +136,10 @@ namespace Hal
       // kV0CosTopo        = 206,
     };
 
+
   }  // namespace DataFieldID
 
-  namespace DetectorID
-  {
+  namespace DetectorID {
     /**
      * get detector ID by converting up to 6 letters/digits into unige long int
      * @param pattern
