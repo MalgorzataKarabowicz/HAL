@@ -10,8 +10,10 @@
 #define HALFEMTO_DATAFORMAT_HALDATAFORMAT_H_
 
 #include <TObject.h>
-namespace Hal {
-  namespace DataFieldID {
+namespace Hal
+{
+  namespace DataFieldID
+  {
     enum EEvent {
       kVertexX   = 10000001,
       kVertexY   = 10000002,
@@ -23,10 +25,13 @@ namespace Hal {
       kTracksNo  = 10000008,
       kEventId   = 10000009,
       kEventZero = 10000010
-
     };
-    enum EMcEvent { kB = 10000011 };
-    enum EExpEvent { kTofTracksNo = 10000012 };
+    enum EMcEvent {
+      kB = 10000011
+    };
+    enum EExpEvent {
+      kTofTracksNo = 10000012
+    };
     enum EComplexEvent {
       kDeltaRPhi     = 10000050,
       kDeltaVertexXY = 10000051,
@@ -40,7 +45,8 @@ namespace Hal {
     };
     const Int_t ReStep = 100000;
     const Int_t ImStep = 200000;
-    namespace Internal {  // do not use in macro
+    namespace Internal
+    {  // do not use in macro
       const Int_t ReStepEvent = 10100000;
       const Int_t ImStepEvent = 10200000;
       const Int_t EventStart  = 10000000;
@@ -100,7 +106,6 @@ namespace Hal {
       kTpcNsigmaKa = 113,
       kTpcNsigmaPr = 114,
       kTpcNsigmaEl = 115
-
     };
     enum EComplexTrack {
       kDeltaPt    = 151,
@@ -112,10 +117,33 @@ namespace Hal {
       kDeltaTheta = 157,
       kDeltaEta   = 158
     };
+    enum EV0Track {
+      kV0DauPosId  = 201,
+      kV0DauNegId  = 202,
+      kV0Pdg       = 203,
+      kV0Alpha     = 204,
+      kV0PtArm     = 205,
+      kV0DauDist   = 206,
+      kV0DecLenght = 207,
+      kV0MomMass   = 208,
+      kV0MomPx     = 209,
+      kV0MomPy     = 210,
+      kV0MomPz     = 211,
+      kV0MomX      = 212,
+      kV0MomY      = 213,
+      kV0MomZ      = 214
+      // kV0Chi2Geo        = 201,
+      // kV0Chi2PrimDauPos = 202,
+      // kV0Chi2PrimDauNeg = 203,
+      // kV0CosDauPos      = 204,
+      // kV0CosDauNeg      = 205,
+      // kV0CosTopo        = 206,
+    };
 
   }  // namespace DataFieldID
 
-  namespace DetectorID {
+  namespace DetectorID
+  {
     /**
      * get detector ID by converting up to 6 letters/digits into unige long int
      * @param pattern

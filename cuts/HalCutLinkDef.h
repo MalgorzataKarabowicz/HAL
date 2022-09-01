@@ -155,6 +155,11 @@
 #pragma link C++ class Hal::TwoTrackRealCut + ;
 #pragma link C++ class Hal::TwoTrackImaginaryCut + ;
 #pragma link C++ class Hal::TwoTrackAntiSplittingCut + ;
+// V0 cut
+#pragma link C++ class Hal::TrackV0ArmCut + ;
+#pragma link C++ class Hal::TrackV0DecLengthCut + ;
+#pragma link C++ class Hal::TrackV0DauDistCut + ;
+#pragma link C++ class Hal::TrackV0PdgCut + ;
 /*
 #pragma link C++ class Hal::EventClonedCut+;
 #pragma link C++ class Hal::TrackClonedCut+;
