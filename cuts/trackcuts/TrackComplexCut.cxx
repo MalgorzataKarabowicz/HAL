@@ -9,6 +9,8 @@
 
 #include "TrackComplexCut.h"
 
+#include <TString.h>
+
 #include "ComplexEvent.h"
 #include "ComplexTrack.h"
 #include "Cout.h"
@@ -18,11 +20,11 @@
 #include "Parameter.h"
 #include "Std.h"
 
-#include <TString.h>
 
-
-namespace Hal {
-  Bool_t TrackComplexCut::Pass(Track* track) {
+namespace Hal
+{
+  Bool_t TrackComplexCut::Pass(Track* track)
+  {
     ComplexTrack* z_track = (ComplexTrack*) track;
     Bool_t stat2          = kTRUE;
     if (z_track->GetImgTrack() == nullptr) {
@@ -30,7 +32,8 @@ namespace Hal {
       for (int i = 0; i < fImgCut->GetCutSize(); i++)
         fImgCut->SetValue(-DBL_MAX, i);
       stat2 = fImgCut->ForcedUpdate(fAcceptNulls);
-    } else {
+    }
+    else {
       stat2 = fImgCut->Pass(z_track->GetImgTrack());
     }
     Bool_t stat1 = fRealCut->Pass(z_track->GetRealTrack());
@@ -44,7 +47,8 @@ namespace Hal {
     return ForcedUpdate(kFALSE);
   }
 
-  Package* TrackComplexCut::Report() const {
+  Package* TrackComplexCut::Report() const
+  {
     Package* pack = TrackCut::Report();
     pack->AddObject(new ParameterString("CutName_{re}", fRealCut->CutName()));
     pack->AddObject(new ParameterString("CutName_{im}", fImgCut->CutName()));
@@ -61,15 +65,23 @@ namespace Hal {
     return pack;
   }
 
-  TrackComplexCut::TrackComplexCut() :
-    TrackCut(1), fRealCut(NULL), fImgCut(NULL), fStep(0), fNullObjects(0), fAcceptNulls(kFALSE) {}
+  TrackComplexCut::TrackComplexCut()
+    : TrackCut(1)
+    , fRealCut(NULL)
+    , fImgCut(NULL)
+    , fStep(0)
+    , fNullObjects(0)
+    , fAcceptNulls(kFALSE)
+  {
+  }
 
-  TrackComplexCut::TrackComplexCut(const TrackCut* real, const TrackCut* img) :
-    TrackCut(real->GetCutSize() + img->GetCutSize()),
-    fRealCut((TrackCut*) real->MakeCopy()),
-    fImgCut((TrackCut*) img->MakeCopy()),
-    fNullObjects(0),
-    fAcceptNulls(kFALSE) {
+  TrackComplexCut::TrackComplexCut(const TrackCut* real, const TrackCut* img)
+    : TrackCut(real->GetCutSize() + img->GetCutSize())
+    , fRealCut((TrackCut*) real->MakeCopy())
+    , fImgCut((TrackCut*) img->MakeCopy())
+    , fNullObjects(0)
+    , fAcceptNulls(kFALSE)
+  {
     for (int i = 0; i < real->GetCutSize(); i++) {
       SetUnitName(real->GetUnit(i) + "_{re}", i);
       SetMinMax(real->GetMin(i), real->GetMax(i), i);
@@ -83,7 +95,8 @@ namespace Hal {
     }
   }
 
-  Bool_t TrackComplexCut::Init(Int_t task_id) {
+  Bool_t TrackComplexCut::Init(Int_t task_id)
+  {
     if (!TrackCut::Init(task_id)) {
 #ifdef HAL_DEBUG
       Cout::PrintInfo(Form("Failed to init cut %s", ClassName()), EInfo::kDebugInfo);
@@ -99,7 +112,8 @@ namespace Hal {
       ok += fRealCut->Init(task_id);
       if (ok == 0) {
 #ifdef HAL_DEBUG
-        Cout::PrintInfo(Form("Failed to init %s due to init %s", ClassName(), fRealCut->ClassName()), EInfo::kDebugInfo);
+        Cout::PrintInfo(Form("Failed to init %s due to init %s", ClassName(), fRealCut->ClassName()),
+                        EInfo::kDebugInfo);
 #endif
       }
       manager->SetFormat(z->GetImgEvent(), task_id, EFormatDepth::kNonBuffered, kTRUE);
@@ -122,28 +136,32 @@ namespace Hal {
     return kFALSE;
   }
 
-  TrackComplexCut::TrackComplexCut(const TrackComplexCut& other) : TrackComplexCut(other.fRealCut, other.fImgCut) {
+  TrackComplexCut::TrackComplexCut(const TrackComplexCut& other) : TrackComplexCut(other.fRealCut, other.fImgCut)
+  {
     fNullObjects = other.fNullObjects;
     fAcceptNulls = other.fAcceptNulls;
   }
 
   TrackComplexCut::TrackComplexCut(TrackCut* cut) : TrackComplexCut(cut, cut) {}
 
-  TString TrackComplexCut::CutName(Option_t* /*opt*/) const {
+  TString TrackComplexCut::CutName(Option_t* /*opt*/) const
+  {
     return Form("Hal::TrackComplexCut(%s,%s)", fRealCut->CutName().Data(), fImgCut->CutName().Data());
   }
 
-  TrackComplexCut::~TrackComplexCut() {
+  TrackComplexCut::~TrackComplexCut()
+  {
     if (fRealCut) delete fRealCut;
     if (fImgCut) delete fImgCut;
   }
 
-  TrackComplexCut::TrackComplexCut(const TrackCut& real, const TrackCut& img) :
-    TrackCut(real.GetCutSize() + img.GetCutSize()),
-    fRealCut((TrackCut*) real.MakeCopy()),
-    fImgCut((TrackCut*) img.MakeCopy()),
-    fNullObjects(0),
-    fAcceptNulls(kFALSE) {
+  TrackComplexCut::TrackComplexCut(const TrackCut& real, const TrackCut& img)
+    : TrackCut(real.GetCutSize() + img.GetCutSize())
+    , fRealCut((TrackCut*) real.MakeCopy())
+    , fImgCut((TrackCut*) img.MakeCopy())
+    , fNullObjects(0)
+    , fAcceptNulls(kFALSE)
+  {
     for (int i = 0; i < real.GetCutSize(); i++) {
       SetUnitName(real.GetUnit(i) + "_{re}", i);
       SetMinMax(real.GetMin(i), real.GetMax(i), i);
@@ -161,14 +179,18 @@ namespace Hal {
 
   TrackRealCut::TrackRealCut() : TrackCut(1), fRealCut(nullptr) {}
 
-  TrackRealCut::TrackRealCut(const TrackCut* real) : TrackCut(real->GetCutSize()), fRealCut((TrackCut*) real->MakeCopy()) {
+  TrackRealCut::TrackRealCut(const TrackCut* real)
+    : TrackCut(real->GetCutSize())
+    , fRealCut((TrackCut*) real->MakeCopy())
+  {
     for (int i = 0; i < real->GetCutSize(); i++) {
       SetUnitName(real->GetUnit(i) + "_{re}", i);
       SetMinMax(real->GetMin(i), real->GetMax(i), i);
     }
   }
 
-  TrackRealCut::TrackRealCut(const TrackCut& real) : TrackCut(real.GetCutSize()), fRealCut((TrackCut*) real.MakeCopy()) {
+  TrackRealCut::TrackRealCut(const TrackCut& real) : TrackCut(real.GetCutSize()), fRealCut((TrackCut*) real.MakeCopy())
+  {
     for (int i = 0; i < real.GetCutSize(); i++) {
       SetUnitName(real.GetUnit(i) + "_{re}", i);
       SetMinMax(real.GetMin(i), real.GetMax(i), i);
@@ -177,7 +199,8 @@ namespace Hal {
 
   TrackRealCut::TrackRealCut(const TrackRealCut& other) : TrackRealCut(other.GetRealCut()) {}
 
-  Bool_t TrackRealCut::Pass(Track* track) {
+  Bool_t TrackRealCut::Pass(Track* track)
+  {
     ComplexTrack* z_track = (ComplexTrack*) track;
     Bool_t passed         = fRealCut->Pass(z_track->GetRealTrack());
     for (int i = 0; i < GetCutSize(); i++) {
@@ -186,7 +209,8 @@ namespace Hal {
     return ForcedUpdate(passed);
   }
 
-  Bool_t TrackRealCut::Init(Int_t task_id) {
+  Bool_t TrackRealCut::Init(Int_t task_id)
+  {
     if (!TrackCut::Init(task_id)) return kFALSE;
     DataFormatManager* manager = DataFormatManager::Instance();
     const Event* event         = manager->GetFormat(task_id, EFormatDepth::kNonBuffered);
@@ -203,7 +227,8 @@ namespace Hal {
     return kFALSE;
   }
 
-  Package* TrackRealCut::Report() const {
+  Package* TrackRealCut::Report() const
+  {
     Package* pack = TrackCut::Report();
     pack->AddObject(new ParameterString("CutName_{re}", fRealCut->CutName()));
     pack->AddObject(new ParameterInt("CutSize_{re}", fRealCut->GetCutSize()));
@@ -213,9 +238,13 @@ namespace Hal {
     return pack;
   }
 
-  TString TrackRealCut::CutName(Option_t* /*opt*/) const { return Form("Hal::TrackRealCut(%s)", fRealCut->CutName().Data()); }
+  TString TrackRealCut::CutName(Option_t* /*opt*/) const
+  {
+    return Form("Hal::TrackRealCut(%s)", fRealCut->CutName().Data());
+  }
 
-  TrackRealCut::~TrackRealCut() {
+  TrackRealCut::~TrackRealCut()
+  {
     if (fRealCut) delete fRealCut;
   }
 
@@ -223,28 +252,38 @@ namespace Hal {
 
   TrackImaginaryCut::TrackImaginaryCut() : TrackCut(1), fImgCut(nullptr), fNullObjects(0), fAcceptNulls(kFALSE) {}
 
-  TrackImaginaryCut::TrackImaginaryCut(const TrackCut* img) :
-    TrackCut(img->GetCutSize()), fImgCut((TrackCut*) img->MakeCopy()), fNullObjects(0), fAcceptNulls(kFALSE) {
+  TrackImaginaryCut::TrackImaginaryCut(const TrackCut* img)
+    : TrackCut(img->GetCutSize())
+    , fImgCut((TrackCut*) img->MakeCopy())
+    , fNullObjects(0)
+    , fAcceptNulls(kFALSE)
+  {
     for (int i = 0; i < img->GetCutSize(); i++) {
       SetUnitName(img->GetUnit(i) + "_{im}", i);
       SetMinMax(img->GetMin(i), img->GetMax(i), i);
     }
   }
 
-  TrackImaginaryCut::TrackImaginaryCut(const TrackCut& img) :
-    TrackCut(img.GetCutSize()), fImgCut((TrackCut*) img.MakeCopy()), fNullObjects(0), fAcceptNulls(kFALSE) {
+  TrackImaginaryCut::TrackImaginaryCut(const TrackCut& img)
+    : TrackCut(img.GetCutSize())
+    , fImgCut((TrackCut*) img.MakeCopy())
+    , fNullObjects(0)
+    , fAcceptNulls(kFALSE)
+  {
     for (int i = 0; i < img.GetCutSize(); i++) {
       SetUnitName(img.GetUnit(i) + "_{im}", i);
       SetMinMax(img.GetMin(i), img.GetMax(i), i);
     }
   }
 
-  TrackImaginaryCut::TrackImaginaryCut(const TrackImaginaryCut& other) : TrackImaginaryCut(other.GetImgCut()) {
+  TrackImaginaryCut::TrackImaginaryCut(const TrackImaginaryCut& other) : TrackImaginaryCut(other.GetImgCut())
+  {
     fNullObjects = other.fNullObjects;
     fAcceptNulls = other.fAcceptNulls;
   }
 
-  Bool_t TrackImaginaryCut::Pass(Track* track) {
+  Bool_t TrackImaginaryCut::Pass(Track* track)
+  {
     ComplexTrack* z_track = (ComplexTrack*) track;
     if (z_track->GetImgTrack() == nullptr) {
       ++fNullObjects;
@@ -262,7 +301,8 @@ namespace Hal {
     return ForcedUpdate(passed);
   }
 
-  Bool_t TrackImaginaryCut::Init(Int_t task_id) {
+  Bool_t TrackImaginaryCut::Init(Int_t task_id)
+  {
     if (!TrackCut::Init(task_id)) return kFALSE;
     DataFormatManager* manager = DataFormatManager::Instance();
     const Event* event         = manager->GetFormat(task_id, EFormatDepth::kNonBuffered);
@@ -279,7 +319,8 @@ namespace Hal {
     return kFALSE;
   }
 
-  Package* TrackImaginaryCut::Report() const {
+  Package* TrackImaginaryCut::Report() const
+  {
     Package* pack = TrackCut::Report();
     pack->AddObject(new ParameterString("CutName_{im}", fImgCut->CutName()));
     pack->AddObject(new ParameterInt("CutSize_{im}", fImgCut->GetCutSize()));
@@ -291,11 +332,13 @@ namespace Hal {
     return pack;
   }
 
-  TString TrackImaginaryCut::CutName(Option_t* /*opt*/) const {
+  TString TrackImaginaryCut::CutName(Option_t* /*opt*/) const
+  {
     return Form("Hal::TrackImaginaryCut(%s)", fImgCut->CutName().Data());
   }
 
-  TrackImaginaryCut::~TrackImaginaryCut() {
+  TrackImaginaryCut::~TrackImaginaryCut()
+  {
     if (fImgCut) delete fImgCut;
   }
 }  // namespace Hal
