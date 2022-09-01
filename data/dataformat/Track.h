@@ -47,7 +47,7 @@ namespace Hal {
       kGlobal      = 3,
       kMother      = 4,  // set if mother is known (and its secondary)
       kV0Daughters = 5,  // set if v0 and daughters are known
-      kXiDaughters = 6
+      kXiDaughters = 6   // set if xi and daughters are known
     };
 
   public:
@@ -257,7 +257,7 @@ namespace Hal {
     void TranslateLinksVec(const std::vector<int>& vec);
     /**
      *
-     * @return true if particle has 3 dependendecies (probably V0)
+     * @return true if particle has 3 dependencies (probably V0)
      */
     inline Bool_t IsV0() const { return TESTBIT(fType, kV0); };
     /**

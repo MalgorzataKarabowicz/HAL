@@ -60,15 +60,20 @@ namespace Hal
     fStatus     = other->fStatus;
     fMotherID   = other->fMotherID;
     fCharge     = other->fCharge;
-    fHiddenInfo = other->fHiddenInfo;
     fType       = other->fType;
+    fHiddenInfo = -1;
     if (IsV0()) {
+<<<<<<< HEAD
       int poz = GetEvent()->fV0sHiddenInfo->GetEntriesFast();
 
       // std::cout << ClassName() << " " << poz << std::endl;
       V0Track* v0 = (V0Track*) GetEvent()->fV0sHiddenInfo->ConstructedAt(poz);
       // std::cout << "v0 " << v0 << std::endl;
       // std::cout << v0->ClassName() << std::endl;
+=======
+      fHiddenInfo = GetEvent()->fV0Counter++;
+      V0Track* v0 = (V0Track*) GetEvent()->fV0sHiddenInfo->UncheckedAt(fHiddenInfo);
+>>>>>>> 2b427e1ffaf4ca0b119abccb66dcd7d7a8e32b16
       v0->CopyData(other->GetV0Info());
     }
   }
@@ -115,8 +120,13 @@ namespace Hal
       v0Info->SetTrackId(GetThisID());
     }
   }
+<<<<<<< HEAD
   void Track::TranslateLinksVec(const std::vector<int>& vec)
   {
+=======
+
+  void Track::TranslateLinksVec(const std::vector<int>& vec) {
+>>>>>>> 2b427e1ffaf4ca0b119abccb66dcd7d7a8e32b16
     if (IsGoodSecondary()) { SetMotherIndex(vec.at(GetMotherIndex())); }
     if (IsGoodV0()) {
       auto v0Info = GetV0Info();
@@ -125,8 +135,13 @@ namespace Hal
       v0Info->SetTrackId(GetThisID());
     }
   }
+<<<<<<< HEAD
   void Track::SetLinks(std::vector<int>& vec)
   {
+=======
+
+  void Track::SetLinks(std::vector<int>& vec) {
+>>>>>>> 2b427e1ffaf4ca0b119abccb66dcd7d7a8e32b16
     this->SetThisID(vec[0]);
     if (IsGoodSecondary()) {
       SetMotherIndex(vec[1]);
@@ -170,10 +185,16 @@ namespace Hal
       if (good) SETBIT(fType, kV0Daughters);
       else
         CLRBIT(fType, kV0Daughters);
+<<<<<<< HEAD
       fHiddenInfo = fEvent->fV0sHiddenInfo->GetEntriesFast();
       fEvent->fV0sHiddenInfo->ConstructedAt(fEvent->fV0sHiddenInfo->GetEntriesFast());
     }
     else {
+=======
+      fHiddenInfo = fEvent->fV0Counter;
+      fEvent->fV0sHiddenInfo->ConstructedAt(fEvent->fV0Counter++);
+    } else {
+>>>>>>> 2b427e1ffaf4ca0b119abccb66dcd7d7a8e32b16
       CLRBIT(fType, kV0);
     }
   }
@@ -248,6 +269,7 @@ namespace Hal
     return "[]";
   }
 
+<<<<<<< HEAD
   void Track::Clear(Option_t* /*opt*/)
   {
     fMotherID = -1;
@@ -255,6 +277,15 @@ namespace Hal
     fType     = 0;
     fEvent    = nullptr;
     fID       = -1;
+=======
+  void Track::Clear(Option_t* /*opt*/) {
+    fMotherID   = -1;
+    fHiddenInfo = -1;
+    fThisID     = -1;
+    fType       = 0;
+    fEvent      = nullptr;
+    fID         = -1;
+>>>>>>> 2b427e1ffaf4ca0b119abccb66dcd7d7a8e32b16
   }
 
   V0Track* Track::GetV0Info() const
