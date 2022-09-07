@@ -9,25 +9,29 @@
 #include "V0Track.h"
 
 #include "ExpEvent.h"
-namespace Hal {
-  V0Track::V0Track() :
-    fTrackId(-1),
-    fPosId(-1),
-    fNegId(-1),
-    fAssumedPdg(0),
-    fAssumedPdgPos(0),
-    fAssumedPdgNeg(0),
-    fS1(0),
-    fS2(0),
-    fAlpha(0),
-    fPtArm(0),
-    fDauDist(0),
-    fDecLenght(0),
-    fCosAngle(0) {}
+namespace Hal
+{
+  V0Track::V0Track()
+    : fTrackId(-1)
+    , fPosId(-1)
+    , fNegId(-1)
+    , fAssumedPdg(0)
+    , fAssumedPdgPos(0)
+    , fAssumedPdgNeg(0)
+    , fS1(0)
+    , fS2(0)
+    , fAlpha(0)
+    , fPtArm(0)
+    , fDauDist(0)
+    , fDecLenght(0)
+    , fCosAngle(0)
+  {
+  }
 
   V0Track::~V0Track() {}
 
-  Double_t V0Track::GetHypoMass(Double_t m_dau1, Double_t m_dau2) const {
+  Double_t V0Track::GetHypoMass(Double_t m_dau1, Double_t m_dau2) const
+  {
     Double_t tPx = fMomPos.X() + fMomNeg.X();
     Double_t tPy = fMomPos.Y() + fMomNeg.Y();
     Double_t tPz = fMomPos.Z() + fMomNeg.Z();
@@ -43,7 +47,8 @@ namespace Hal {
 
   void V0Track::SetDCA(Double_t x, Double_t y, Double_t z) { fPos.SetXYZ(x, y, z); }
 
-  void V0Track::Recalc(const TVector3& vertex) {
+  void V0Track::Recalc(const TVector3& vertex)
+  {
     fMom = fMomPos + fMomNeg;
 
     Double_t Ptot          = fMom.Mag();
@@ -66,7 +71,8 @@ namespace Hal {
 
   void V0Track::SetMomNeg(Double_t px, Double_t py, Double_t pz) { fMomNeg.SetXYZ(px, py, pz); }
 
-  void V0Track::CopyData(V0Track* v) {
+  void V0Track::CopyData(V0Track* v)
+  {
     fTrackId       = v->fTrackId;
     fPosId         = v->fPosId;
     fNegId         = v->fNegId;

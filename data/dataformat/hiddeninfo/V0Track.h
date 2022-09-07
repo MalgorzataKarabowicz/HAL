@@ -18,7 +18,8 @@
 /**
  * representation of V0 track
  */
-namespace Hal {
+namespace Hal
+{
   class V0Track : public TObject {
     Int_t fTrackId;
     Int_t fPosId;
@@ -32,6 +33,8 @@ namespace Hal {
     Double_t fDauDist;
     Double_t fDecLenght;
     Double_t fCosAngle;
+    Double_t fMassPos;
+    Double_t fMassNeg;
     TVector3 fMom;
     TVector3 fPos;
     TVector3 fDecay;
@@ -111,7 +114,8 @@ namespace Hal {
      * @param s1
      * @param s2
      */
-    void SetS(Double_t s1, Double_t s2) {
+    void SetS(Double_t s1, Double_t s2)
+    {
       fS1 = s1;
       fS2 = s2;
     };
@@ -120,7 +124,8 @@ namespace Hal {
      * @param pos
      * @param neg
      */
-    void SetPdgDaughters(Int_t pos, Int_t neg) {
+    void SetPdgDaughters(Int_t pos, Int_t neg)
+    {
       fAssumedPdgNeg = neg;
       fAssumedPdgPos = pos;
     }

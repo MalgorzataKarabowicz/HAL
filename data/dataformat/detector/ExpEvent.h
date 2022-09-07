@@ -8,11 +8,12 @@
  */
 #ifndef HALEXPEVENT_H_
 #define HALEXPEVENT_H_
-#include "Event.h"
-
 #include <TString.h>
 
-namespace Hal {
+#include "Event.h"
+
+namespace Hal
+{
   class DetectorEvent;
 
   /**
@@ -26,7 +27,7 @@ namespace Hal {
     TVector3* fMagField;
     TLorentzVector* fVertexError;
     virtual void ShallowCopyEvent(Event* event);
-    ExpEvent(TString track_class, TString v0_class = "Hal::V0Track");
+    ExpEvent(TString track_class, TString v0_class = "HalCbmV0Track");
 
   public:
     ExpEvent();
@@ -56,7 +57,7 @@ namespace Hal {
 
   class ExpEventHelix : public ExpEvent {
   protected:
-    ExpEventHelix(TString track_class, TString v0_class = "V0Track");
+    ExpEventHelix(TString track_class, TString v0_class = "HalCbmV0Track");
 
   public:
     ExpEventHelix();
