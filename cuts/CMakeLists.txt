@@ -116,12 +116,6 @@ twotrackcuts/mc/TwoTrackFemtoPRFCut.cxx
 twotrackcuts/mc/PdgBinPairCut.cxx
 twotrackcuts/TwoTrackVirtualCut.cxx
 
-#V0 CUT
-v0cuts/TrackV0ArmCut.cxx
-v0cuts/TrackV0DecLengthCut.cxx
-v0cuts/TrackV0DauDistCut.cxx
-v0cuts/TrackV0PdgCut.cxx
-
 #CUT MONITORS
 cutmonitors/CutMonitor.cxx
 cutmonitors/CutMonitorX.cxx
