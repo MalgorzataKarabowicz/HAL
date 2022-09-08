@@ -11,7 +11,8 @@
 
 #include "TrackCut.h"
 
-namespace Hal {
+namespace Hal
+{
   class Package;
   class V0MassInvCut : public TrackCut {
     Int_t fPid1Hypo = {0};
@@ -21,7 +22,8 @@ namespace Hal {
 
   public:
     V0MassInvCut();
-    void SetDaughterPidHypo(Int_t posPdg, Int_t negPdg) {
+    void SetDaughterPidHypo(Int_t posPdg, Int_t negPdg)
+    {
       fPid1Hypo = posPdg;
       fPid2Hypo = negPdg;
     }

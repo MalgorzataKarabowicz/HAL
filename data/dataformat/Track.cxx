@@ -209,20 +209,7 @@ namespace Hal
       case DataFieldID::Track::EV0::kK0Mass: return GetV0IfPossible(fieldID); break;
     }
     if (fieldID > DataFieldID::Internal::EventStart) { return GetEvent()->GetFieldVal(fieldID); }
-    if (IsV0()) {
-      switch (fieldID) {
-        case DataFieldID::EV0Track::kV0DauPosId: return GetV0Info()->GetPosId(); break;
-        case DataFieldID::EV0Track::kV0DauNegId: return GetV0Info()->GetNegId(); break;
-        case DataFieldID::EV0Track::kV0Pdg: return GetV0Info()->GetPdg(); break;
-        case DataFieldID::EV0Track::kV0Alpha: return GetV0Info()->GetAlphaArm(); break;
-        case DataFieldID::EV0Track::kV0PtArm: return GetV0Info()->GetPtArm(); break;
-        case DataFieldID::EV0Track::kV0DauDist: return GetV0Info()->GetDauDist(); break;
-        case DataFieldID::EV0Track::kV0DecLenght: return GetV0Info()->GetDecLength(); break;
-        case DataFieldID::EV0Track::kV0MomPx: return GetV0Info()->GetMom().Px(); break;
-        case DataFieldID::EV0Track::kV0MomPy: return GetV0Info()->GetMom().Py(); break;
-        case DataFieldID::EV0Track::kV0MomPz: return GetV0Info()->GetMom().Pz(); break;
-      }
-    }
+
     return -FLT_MAX;
   }
 

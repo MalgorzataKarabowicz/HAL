@@ -12,6 +12,10 @@
 #include <TDatabasePDG.h>
 #include <TParticlePDG.h>
 
+#include "Package.h"
+#include "Parameter.h"
+#include "V0Track.h"
+
 namespace Hal
 {
   V0MassInvCut::V0MassInvCut() : TrackCut(1) { SetUnitName("M_{inv} [GeV/c^{2}]"); }
