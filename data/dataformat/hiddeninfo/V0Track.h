@@ -20,8 +20,6 @@
  */
 namespace Hal
 {
-  namespace Hal
-  {
     class Track;
     class V0Track : public TObject {
       Int_t fTrackId;
